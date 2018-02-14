@@ -1,36 +1,57 @@
 ﻿<h1>@ViewBag.title</h1>
 
-<form action="/Search/Results">
-    <h2>Search by:</h2>
+@if (ViewBag.jobs == null)
+{
+    <form action="/Search/Results">
+        <h2>Search by: </h2>
 
-    <p>
-        @foreach (KeyValuePair<string, string> column in ViewBag.columns)
-        {
-            <span>
-                <input type="radio"
-                       name="searchType"
-                       id="@column.Key"
-                       value="@column.Key" 
-                       checked="@column.Key == 'all''"/>
-                <label for="@column.Key">@column.Value</label>
-            </span>
-        }
-    </p>
+        <p>
+            @foreach (KeyValuePair<string, string> column in ViewBag.columns)
+            {
+                <span>
+                    <input type="radio"
+                           name="searchType"
+                           id="@column.Key"
+                           value="@column.Key"
+                           checked="@column.Key == 'all''" />
+                    <label for="@column.Key">@column.Value</label>
+                </span>
+            }
+        </p>
 
-    <p>
-        <label for="searchTerm">Keyword:</label>
-        <input type="text" name="searchTerm" id="searchTerm" />
-    </p>
+        <p>
+            <label for="searchTerm">Keyword:</label>
+            <input type="text" name="searchTerm" id="searchTerm" />
+        </p>
 
-    <input type="submit" value="Search" />
-</form>
+        <input type="submit" value="Search" />
+    </form>
 
-<hr />
+    <hr />
+
+}
+
 
 @if (ViewBag.jobs != null)
 {
 
     <h3>@ViewBag.jobs.Count Result(s)</h3>
 
-    // TODO #2 - Loop over jobs dictionary and display all job fields 
+    // TODO #2 - Loop over jobs dictionary and display all job fields
+    <table class="job-listing">
+        @{
+            List<Dictionary<string, string>> jobs = ViewBag.jobs;
+
+            foreach (Dictionary<string, string> job in jobs)
+            {
+                <tr>
+                    @{ foreach (KeyValuePair<string, string> column in job)
+                        {
+                            <td>@column.Value</td>
+                        }
+                    }
+                </tr>
+            }
+        }
+    </table>
 }
