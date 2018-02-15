@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TechJobs.Models;
 
@@ -22,6 +23,13 @@ namespace TechJobs.Controllers
         {
             List<Dictionary<string, string>> values = new List<Dictionary<string, string>>();
             List<Dictionary<string, string>> jobs = JobData.FindAll();
+            
+            ViewBag.search = searchType;
+            if (searchTerm == null)
+            {
+                ViewBag.columns = ListController.columnChoices;
+                return View("Index");
+            }
             if (searchType == "all")
             {               
                 foreach (Dictionary<string, string> job in jobs)
@@ -35,10 +43,9 @@ namespace TechJobs.Controllers
                                 values.Add(job);
                             }
                         }
-
-
                     }
                 }
+                ViewBag.columns = ListController.columnChoices;
                 ViewBag.jobs = values;
                 return View("Index");
             }
@@ -54,6 +61,7 @@ namespace TechJobs.Controllers
                         }
                     }
                 }
+                ViewBag.columns = ListController.columnChoices;
                 ViewBag.jobs = values;
                 return View("Index");
 

@@ -1,35 +1,52 @@
-﻿<h1>@ViewBag.title</h1>
+﻿@{
+    string newSearch = "";
+    if (ViewBag.search == null)
+    {
+        newSearch = "all";
+    }
+    else
+    {
+        newSearch = ViewBag.search;
 
-@if (ViewBag.jobs == null)
-{
-    <form action="/Search/Results">
-        <h2>Search by: </h2>
-
-        <p>
-            @foreach (KeyValuePair<string, string> column in ViewBag.columns)
-            {
-                <span>
-                    <input type="radio"
-                           name="searchType"
-                           id="@column.Key"
-                           value="@column.Key"
-                           checked="@column.Key == 'all''" />
-                    <label for="@column.Key">@column.Value</label>
-                </span>
-            }
-        </p>
-
-        <p>
-            <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
-        </p>
-
-        <input type="submit" value="Search" />
-    </form>
-
-    <hr />
-
+    }
 }
+
+<h1>@ViewBag.title</h1>
+
+
+<form action="/Search/Results">
+    <h2>Search by: </h2>
+
+    <p>
+        @{bool picked = false; }
+        @foreach (KeyValuePair<string, string> column in ViewBag.columns)
+        {
+            picked = false;
+            if (column.Key == newSearch)
+            {
+                picked = true;
+            }
+
+            <span>
+                <input type="radio"
+                       name="searchType"
+                       id="@column.Key"
+                       value="@column.Key"
+                       checked="@picked" />
+                <label for="@column.Key">@column.Value</label>
+            </span>
+        }
+    </p>
+
+    <p>
+        <label for="searchTerm">Keyword:</label>
+        <input type="text" name="searchTerm" id="searchTerm" />
+    </p>
+
+    <input type="submit" value="Search" />
+</form>
+
+<hr />
 
 
 @if (ViewBag.jobs != null)
@@ -38,20 +55,6 @@
     <h3>@ViewBag.jobs.Count Result(s)</h3>
 
     // TODO #2 - Loop over jobs dictionary and display all job fields
-    <table class="job-listing">
-        @{
-            List<Dictionary<string, string>> jobs = ViewBag.jobs;
 
-            foreach (Dictionary<string, string> job in jobs)
-            {
-                <tr>
-                    @{ foreach (KeyValuePair<string, string> column in job)
-                        {
-                            <td>@column.Value</td>
-                        }
-                    }
-                </tr>
-            }
-        }
-    </table>
+    @Html.Partial("JobList")
 }
