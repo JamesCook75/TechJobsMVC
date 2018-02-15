@@ -3,7 +3,7 @@
 }
 <p>View jobs by:</p>
 <ul>
-    @foreach (KeyValuePair<string, string> action in ViewBag.actions)
+    @foreach (KeyValuePair<string, string> action in ViewBag.actionChoices)
     {
         <li><a href="/@action.Key">@action.Value</a></li>
     }

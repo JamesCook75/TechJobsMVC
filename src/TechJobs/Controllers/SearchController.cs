@@ -8,14 +8,14 @@ using TechJobs.Models;
 
 namespace TechJobs.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : TechJobsController
     {
-        public IActionResult Index()
-        {
-            ViewBag.columns = ListController.columnChoices;
-            ViewBag.title = "Search";
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    ViewBag.columns = ListController.columnChoices;
+        //    ViewBag.title = "Search";
+        //    return View();
+        //}
 
         // TODO #1 - Create a Results action method to process 
         // search request and display results

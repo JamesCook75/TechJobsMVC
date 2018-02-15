@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    Dictionary<string, string> actionChoices = new Dictionary<string, string>();
+    actionChoices = ViewBag.actionChoices;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -24,8 +29,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Search" asp-action="Index">Search</a></li>
-                    <li><a asp-controller="List" asp-action="Index">List</a></li>
+                    @*<li><a asp-controller="Search" asp-action="Index">Search</a></li>
+        <li><a asp-controller="List" asp-action="Index">List</a></li>*@
+                    @{
+        foreach (KeyValuePair<string, string> item in actionChoices)
+        {
+                @*<li><a asp-controller="Search" asp-action="Index">@item.Value</a></li>*@
+                <li><a href="/@item.Key">@item.Value</a></li>
+}
+                    }
                 </ul>
             </div>
         </div>

@@ -5,7 +5,7 @@ using TechJobs.Models;
 
 namespace TechJobs.Controllers
 {
-    public class ListController : Controller
+    public class ListController : TechJobsController
     {
         internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();
 
@@ -21,11 +21,11 @@ namespace TechJobs.Controllers
             columnChoices.Add("all", "All");
         }
 
-        public IActionResult Index()
-        {
-            ViewBag.columns = columnChoices;
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    ViewBag.columns = columnChoices;
+        //    return View();
+        //}
 
         public IActionResult Values(string column)
         {
