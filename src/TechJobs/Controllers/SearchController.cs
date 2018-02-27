@@ -10,19 +10,10 @@ namespace TechJobs.Controllers
 {
     public class SearchController : TechJobsController
     {
-        //public IActionResult Index()
-        //{
-        //    ViewBag.columns = ListController.columnChoices;
-        //    ViewBag.title = "Search";
-        //    return View();
-        //}
-
-        // TODO #1 - Create a Results action method to process 
-        // search request and display results
         public IActionResult Results(string searchTerm, string searchType)
         {
-            List<Dictionary<string, string>> values = new List<Dictionary<string, string>>();
-            List<Dictionary<string, string>> jobs = JobData.FindAll();
+            IList<Dictionary<string, string>> values = new List<Dictionary<string, string>>();
+            IEnumerable<Dictionary<string, string>> jobs = JobData.FindAll();
             
             ViewBag.search = searchType;
             if (searchTerm == null)
